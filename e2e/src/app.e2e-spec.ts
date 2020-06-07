@@ -8,9 +8,12 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display time', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('angular-rxjs-interval app is running!');
+
+    const time = page.getTime();
+    console.log(time);
+    expect(time).toBeTruthy();
   });
 
   afterEach(async () => {

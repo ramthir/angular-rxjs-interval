@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { TimeService } from './time.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  template: `<span id="time">{{timeService.time$ | async | date: 'short'}}</span>`
 })
 export class AppComponent {
-  title = 'angular-rxjs-interval';
+
+  constructor(public timeService: TimeService) { }
+
 }

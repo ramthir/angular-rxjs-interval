@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-rxjs-interval"
+    }
+  },
+  "defaultProject": "angular-rxjs-interval",
+  "cli": {
+    "analytics": "72190b65-4ed5-484c-9320-b30a1e94843c"
+  }
 }

@@ -4,7 +4,6 @@ import { TimeService } from './time.service';
 
 describe('TimeService', () => {
   let service: TimeService;
-  const UnmockedDate = Date;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({});
@@ -16,6 +15,7 @@ describe('TimeService', () => {
   });
 
   fit('should return current date async', fakeAsync(() => {
+    const UnmockedDate = Date;
     const currentTime = new UnmockedDate('2018-01-01 01:30:00');
     spyOn(<any>window, 'Date').and.returnValue(currentTime);
 

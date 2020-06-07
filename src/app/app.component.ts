@@ -3,7 +3,7 @@ import { TimeService } from './time.service';
 
 @Component({
   selector: 'app-root',
-  template: `<span id="time">{{timeService.time$ | async | date: 'short'}}</span>`
+  template: `<span id="time">{{timeService.time | async | date: 'short'}}</span>`
 })
 export class AppComponent {
 

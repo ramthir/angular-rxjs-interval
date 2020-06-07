@@ -1,15 +1,28 @@
-import { Injectable } from '@angular/core';
-import { interval, Observable } from 'rxjs';
-import { map, startWith } from "rxjs/operators";
+import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { interval, Observable, BehaviorSubject, Subject } from 'rxjs';
+import { map, startWith, takeUntil } from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class TimeService {
+export class TimeService implements OnDestroy {
 
-  time$: Observable<Date>;
+  private readonly timeSub = new BehaviorSubject<Date>(new Date());
+  private readonly destroySub = new Subject();
 
-  constructor() {
-    this.time$ = interval(60000).pipe(startWith(new Date()), map(tick => new Date()));
+  get time(): Observable<Date> {
+    return this.timeSub.asObservable();
+  }
+
+  constructor(private readonly zone: NgZone) {
+    this.zone.runOutsideAngular(() => interval(60000).pipe(
+      map(tick => new Date()),
+      takeUntil(this.destroySub)
+    ).subscribe(time => this.timeSub.next(time)));
+  }
+
+  ngOnDestroy() {
+    this.destroySub.next();
+    this.destroySub.complete();
   }
 }
